@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div class="container">
+    <div>
+        <table>
+            <th>제목: </th>
+            <th th:text="${article.title}"></th>
+
+            <tr>
+                <td>내용</td>
+            </tr>
+            <tr>
+                <td th:text="${article.content}"></td>
+            </tr>
+        </table>
+    </div>
+
+</div> <!-- /container -->
+</body>
+</html>
