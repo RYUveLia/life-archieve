@@ -1,7 +1,6 @@
 package life.lifearchieve.service;
 
-import life.lifearchieve.repository.ArticleRepository;
-import life.lifearchieve.repository.JpaArticleRepository;
+import life.lifearchieve.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,5 +24,15 @@ public class SpringConfig {
     @Bean
     public ArticleRepository articleRepository() {
         return new JpaArticleRepository(em);
+    }
+
+    @Bean
+    public MemberRepository memberRepository() {
+        return new JpaMemberRepository(em);
+    }
+
+    @Bean
+    public MemberService memberService() {
+        return new MemberService(memberRepository());
     }
 }

@@ -7,12 +7,12 @@ import lombok.ToString;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "MemberVO")
+@Table(name = "Member")
 @ToString
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MemberVO {
+public class Member {
     @Id @Column(length = 12, nullable = false)
     private String userId;
 
