@@ -25,6 +25,9 @@ public class MemberService {
     }
 
     //로그인
+    public boolean loginCheck(Member member) {
+        return memberRepository.loginCheck(member);
+    }
     //회원수정
     //회원탈퇴
 }

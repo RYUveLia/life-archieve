@@ -4,12 +4,11 @@ import life.lifearchieve.domain.Member;
 import life.lifearchieve.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -24,24 +23,28 @@ public class LoginController {
         return "member/login";
     }
 
-    /*
-    @RequestMapping("/loginCheck")
-    public ModelAndView loginCheck(@ModelAttribute Member vo, HttpSession session) {
-        boolean result = memberService.loginCheck(vo, session);
-        ModelAndView mav = new ModelAndView();
+
+    @PostMapping("login")
+    public String loginCheck(LoginForm form, HttpServletRequest req, RedirectAttributes rttr) throws Exception{
+        Member member = new Member();
+        HttpSession session = req.getSession();
+
+        member.setUserId(form.getUserId());
+        member.setUserPw(form.getUserPw());
+
+        boolean result = memberService.loginCheck(member);
 
         if (result == true) {
-            mav.setViewName("index");
-            mav.addObject("msg", "success");
+            session.setAttribute("member", member);
         }
         else {
-            mav.setViewName("member/login");
-            mav.addObject("msg", "failure");
+            session.setAttribute("member", null);
+            rttr.addFlashAttribute("msg", false);
         }
 
-        return mav;
+        return "redirect:/";
     }
-
+/*
     @RequestMapping("logout")
     public ModelAndView logout(HttpSession session) {
         memberService.logout(session);
